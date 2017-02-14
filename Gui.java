@@ -1,9 +1,7 @@
 /*dodaæ generatory danych - pesel, regon, 
 http://www.bogus.ovh.org/generatory/all.html
 
-- zaznaczanie pola, w którym jest b³¹d.
 - zmiana wygl¹du
-- Przenieœæ siê na github 
 
 - Analizator skladniowy,  konsumuje stringa do podanej kolumny
 
