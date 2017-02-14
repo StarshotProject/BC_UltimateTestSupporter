@@ -11,26 +11,27 @@ public class Validations {
 		} catch (NumberFormatException nfe) {
 			System.out.println("nieliczba");
 			return thisIsNumber;
-			
+
 		}
 		System.out.println("liczba");
 		return !thisIsNumber;
 	}
-	
+
 	public static boolean areDatesInProperReliance(String dateOfPayment, String dateOfBankStatement) {
 		boolean properReliance = false;
-		
+
 		if (Integer.parseInt(dateOfBankStatement) >= Integer.parseInt(dateOfPayment)) {
 			properReliance = true;
 		}
 		return properReliance;
 	}
-	
+
 	public static boolean is8Digits(String date) {
-		if (date.length()==8) {
+		if (date.length() == 8) {
 			return true;
 		} else {
 			return false;
 		}
 	}
+
 }

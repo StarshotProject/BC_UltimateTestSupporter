@@ -1,4 +1,5 @@
+import javax.swing.JPanel;
 
-public class OtherGeneratorsPanel {
+public class OtherGeneratorsPanel extends JPanel {
 
 }

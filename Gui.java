@@ -4,18 +4,13 @@ http://www.bogus.ovh.org/generatory/all.html
 - zaznaczanie pola, w którym jest b³¹d.
 - zmiana wygl¹du
 - Przenieœæ siê na github 
-- dodaæ case 10 lub 26 cyfr
-- ograniczyæ stosowanie klas anonimowych, bo uniemo¿liwiaj¹ póŸniejsze odwo³ywanie siê do ich instancji
 
 - Analizator skladniowy,  konsumuje stringa do podanej kolumny
 
  * */
 
-import java.awt.AWTEvent;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -32,6 +27,10 @@ public class Gui extends JFrame implements ActionListener {
 	ButtonGroup bankGroup, dealerGroup, agencyGroup;
 	JFrame frame;
 	BankFilesPanel bankFilesPanel = new BankFilesPanel();
+	DealerFilesPanel dealerFilesPanel = new DealerFilesPanel();
+	CentralAgencyFilesPanel centralAgencyPanel = new CentralAgencyFilesPanel();
+	OtherGeneratorsPanel otherGeneratorsPanel = new OtherGeneratorsPanel();
+	LogsPanel logsPanel = new LogsPanel();
 	
 
 	Gui() {
@@ -122,14 +121,10 @@ public class Gui extends JFrame implements ActionListener {
 		JTabbedPane jtp = new JTabbedPane();
 		jtp.addTab("pliki bankowe", bankFilesPanel);
 		jtp.setBounds(0, 0, 446, 425);
-		jtp.addTab("pliki dealera", new DealerFilesPanel());
-		jtp.setBounds(0, 0, 446, 425);
-		jtp.addTab("pliki Agencji", new CentralAgencyFilesPanel());
-		jtp.setBounds(0, 0, 446, 425);
-		jtp.addTab("Inne generatory", new BankFilesPanel());
-		jtp.setBounds(0, 0, 446, 425);
-		jtp.addTab("logi", new LogsPanel());
-		jtp.setBounds(0, 0, 446, 425);
+		jtp.addTab("pliki dealera", dealerFilesPanel);
+		jtp.addTab("pliki Agencji", centralAgencyPanel);
+		jtp.addTab("Inne generatory", otherGeneratorsPanel);
+		jtp.addTab("logi", logsPanel);
 		frame.add(jtp);
 	}
 

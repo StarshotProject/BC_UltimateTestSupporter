@@ -125,63 +125,103 @@ public class BankFilesPanel extends JPanel implements ActionListener {
 			accountNumberReady = accountNumber.getText().replaceAll("\\W", "");
 
 			troubleTicket.setText("");
+			dateOfPayment.setBackground(Color.WHITE);
+			dateOfBankStatement.setBackground(Color.WHITE);
+			accountNumber.setBackground(Color.WHITE);
+			transferTittle.setBackground(Color.WHITE);
+			amount.setBackground(Color.WHITE);
 
 			boolean properAccountNumber = false;
 			boolean properDates = false;
 			boolean properAmount = false;
+			boolean properDateOfPayment = false;
+			boolean properDateOfBankStatement = false;
 
-			// ************** walidacja pól datowych*************//
-
-			if (Validations.isNumeric(dateOfPayment.getText())
-					&& Validations.isNumeric(dateOfBankStatement.getText())) {
-				if (Validations.areDatesInProperReliance(dateOfPayment.getText(), dateOfBankStatement.getText())) {
-					if (Validations.is8Digits(dateOfPayment.getText())
-							&& Validations.is8Digits(dateOfBankStatement.getText())) {
-						properDates = true;
-					} else {
-						troubleTicket.setText("Pola datowe maj¹ niepoprawn¹ liczbê cyfr");
-					}
+			// ************** walidacja pola data p³atnoœci*************//
+			if (Validations.isNumeric(dateOfPayment.getText())) {
+				if (Validations.is8Digits(dateOfPayment.getText())) {
+					properDateOfPayment = true;
 				} else {
-					troubleTicket.setText("Data wyci¹gu bankowego jest wczeœniejsza ni¿ data p³atnoœci!");
+					troubleTicket.setText("Pole 'data p³atnoœci' nie ma oœmiu cyfr");
+					dateOfPayment.setBackground(new Color(255, 150, 150));
 				}
 			} else {
-				troubleTicket.setText("W polach dat nie ma liczb");
+				troubleTicket.setText("Pole 'data p³atnoœci' nie ma wartoœci liczbowej");
+				dateOfPayment.setBackground(new Color(255, 150, 150));
 			}
 
-			// ************** walidacja pola numer konta*************//
+			// **************walidacja pola data wyci¹gu bankowego*******//
 
-			if (clientTypeFile) {
-				if (Validations.isNumeric(accountNumberReady)) {
-					if (accountNumberReady.length() < shortDigitAccountNumber) {
-						troubleTicket
-								.setText("Numer konta jest za krótki!" + "  (" + accountNumberReady.length() + "cyfr)");
-					} else if ((accountNumberReady.length() == shortDigitAccountNumber)
-							|| (accountNumberReady.length() == longDigitAccountNumber)) {
-						properAccountNumber = true;
-					} else if (accountNumberReady.length() > shortDigitAccountNumber
-							&& accountNumberReady.length() < longDigitAccountNumber) {
-						troubleTicket.setText("Numer konta jest d³u¿szy ni¿ 10 i krótszy ni¿ 26 cyfr!" + "  ("
-								+ accountNumberReady.length() + "cyfr)");
+			if (properDateOfPayment) {
+				if (Validations.isNumeric(dateOfBankStatement.getText())) {
+					if (Validations.is8Digits(dateOfBankStatement.getText())) {
+						properDateOfBankStatement = true;
 					} else {
-						troubleTicket
-								.setText("Numer konta jest za d³ugi!" + "  (" + accountNumberReady.length() + "cyfr)");
+						troubleTicket.setText("Pola 'data p³atnoœci' nie ma oœmiu cyfr");
+						dateOfBankStatement.setBackground(new Color(255, 150, 150));
 					}
 				} else {
-					troubleTicket.setText("Numer konta nie jest wartoœci¹ liczbow¹!");
+					troubleTicket.setText("Pola 'data p³atnoœci' nie ma wartoœci liczbowej");
+					dateOfBankStatement.setBackground(new Color(255, 150, 150));
 				}
-			} else {
-				properAccountNumber = true;
+			}
+
+			// *************walidacja ³¹czna na polach datowych**********//
+
+			if (properDateOfPayment && properDateOfBankStatement) {
+				if (Validations.areDatesInProperReliance(dateOfPayment.getText(), dateOfBankStatement.getText())) {
+					properDates = true;
+				} else {
+					troubleTicket.setText("Data wyci¹gu bankowego jest wczeœniejsza ni¿ data p³atnoœci!");
+					dateOfBankStatement.setBackground(new Color(255, 150, 150));
+				}
+			}
+
+			// **************walidacja pola numer konta*******************//
+
+			if (properDates) {
+				if (clientTypeFile) {
+					if (Validations.isNumeric(accountNumberReady)) {
+						if (accountNumberReady.length() < shortDigitAccountNumber) {
+							troubleTicket.setText(
+									"Numer konta jest za krótki!" + "  (" + accountNumberReady.length() + "cyfr)");
+							accountNumber.setBackground(new Color(255, 150, 150));
+						} else if ((accountNumberReady.length() == shortDigitAccountNumber)
+								|| (accountNumberReady.length() == longDigitAccountNumber)) {
+							properAccountNumber = true;
+						} else if (accountNumberReady.length() > shortDigitAccountNumber
+								&& accountNumberReady.length() < longDigitAccountNumber) {
+							troubleTicket.setText("Numer konta jest d³u¿szy ni¿ 10 i krótszy ni¿ 26 cyfr!" + "  ("
+									+ accountNumberReady.length() + "cyfr)");
+							accountNumber.setBackground(new Color(255, 150, 150));
+						} else {
+							troubleTicket.setText(
+									"Numer konta jest za d³ugi!" + "  (" + accountNumberReady.length() + "cyfr)");
+							accountNumber.setBackground(new Color(255, 150, 150));
+						}
+					} else {
+						troubleTicket.setText("Numer konta nie jest wartoœci¹ liczbow¹!");
+						accountNumber.setBackground(new Color(255, 150, 150));
+					}
+				} else {
+					properAccountNumber = true;
+				}
 			}
 
 			// **************walidacje pola kwota******************//
 
-			if (Validations.isNumeric(amount.getText())) {
-				properAmount = true;
-			} else {
-				troubleTicket.setText("W polu kwota nie ma wartoœci liczbowej!");
+			if (properAccountNumber) {
+				if (Validations.isNumeric(amount.getText())) {
+					properAmount = true;
+				} else {
+					troubleTicket.setText("W polu kwota nie ma wartoœci liczbowej!");
+					amount.setBackground(new Color(255, 150, 150));
+				}
 			}
 
-			if (properAccountNumber && properDates && properAmount) {
+			// **************sk³adanie treœci pliku****************//
+
+			if (properAmount) {
 				BankFile.create(StringAssembler.assemblyFileName(dateOfPayment.getText(), clientTypeFile),
 						StringAssembler.assemblyFileContent(dateOfPayment.getText(), amount.getText(),
 								transferTittle.getText(), accountNumberReady, dateOfBankStatement.getText()));
