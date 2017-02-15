@@ -3,7 +3,8 @@ http://www.bogus.ovh.org/generatory/all.html
 
 - zmiana wygl¹du
 
-- Analizator skladniowy,  konsumuje stringa do podanej kolumny
+- Analizator skladniowy do csv,  konsumuje stringa do podanej kolumny
+- mo¿liwoœæ dodawania wielu linii w jednym pliku
 
  * */
 

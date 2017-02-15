@@ -22,25 +22,14 @@ import javax.swing.JTextField;
 
 public class DealerFilesPanel extends JPanel implements ActionListener{
 	
-	JTextFieldLimit c;	
+	JLabel JLDocketNumber, JLDateOfDocket, JLPolicyBusinessNumber, JLEverestPolicyNumber, JLTotalCollection, JLContractCollection, JLFileName;
+	JTextFieldLimit JTextDocketNumber, JTextDateOfDocket, JTextPolicyBusinessNumber, JTextEverestPolicyNumber, JTextTotalCollection, JTextContractCollection, JTextFileName;	
 	
 
 	public DealerFilesPanel() {
 		
-			  JTextField textfield1;
+			    setLayout(null);
 
-			  JLabel label1;
-
-			  
-			    setLayout(new FlowLayout());
-			    label1 = new JLabel("max 10 chars");
-			    textfield1 = new JTextField(15);//15 wyœwietla
-			    add(label1);
-			    add(textfield1);
-			    textfield1.setDocument(new JTextFieldLimit(10));
-			    
-			    setSize(300,300);
-			    setVisible(true);
 			  }
 			
 		
