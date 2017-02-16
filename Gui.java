@@ -1,3 +1,4 @@
+
 /*dodaæ generatory danych - pesel, regon, 
 http://www.bogus.ovh.org/generatory/all.html
 
@@ -8,6 +9,7 @@ http://www.bogus.ovh.org/generatory/all.html
 
  * */
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -16,21 +18,28 @@ import java.util.Scanner;
 
 import javax.swing.*;
 
+import GuiOperations.CustomColorSetter;
+
 public class Gui extends JFrame implements ActionListener {
 
-	JMenuBar menuBar;
-	JMenu file, options, validations, help, open;
-	JMenuItem validationConfig, about, instruction, menuItemOpenBankFile, menuItemOpenDealerFile, menuItemOpenAgencyFile, menuItemExit, menuItemLayout;
-	JCheckBoxMenuItem customBankValidations, customDealerValidations, customAgencyValidations, stdBankValidations,
-			stdDealerValidations, stdAgencyValidations, alwaysOnTop;
-	ButtonGroup bankGroup, dealerGroup, agencyGroup;
 	JFrame frame;
+	JMenuBar menuBar;
+	JMenu file, options, validations, help, open, menuLayout;
+	JMenuItem validationConfig, about, instruction, menuItemOpenBankFile, menuItemOpenDealerFile,
+			menuItemOpenAgencyFile, menuItemExit;
+	JCheckBoxMenuItem customBankValidations, customDealerValidations, customAgencyValidations, stdBankValidations,
+			stdDealerValidations, stdAgencyValidations, alwaysOnTop, menuItemRed, menuItemGreen, menuItemBlue,
+			menuItemPink, menuItemYellow, menuItemCustom, menuItemStandardColor;
+	ButtonGroup bankGroup, dealerGroup, agencyGroup, layoutGroup;
+	JColorChooser colorChooser;
+
 	BankFilesPanel bankFilesPanel = new BankFilesPanel();
 	DealerFilesPanel dealerFilesPanel = new DealerFilesPanel();
 	CentralAgencyFilesPanel centralAgencyPanel = new CentralAgencyFilesPanel();
 	OtherGeneratorsPanel otherGeneratorsPanel = new OtherGeneratorsPanel();
 	LogsPanel logsPanel = new LogsPanel();
 	
+	CustomColorSetter customRGB;
 
 	Gui() {
 		System.out.println("Jestem konstruktorem klasy Gui");
@@ -47,10 +56,10 @@ public class Gui extends JFrame implements ActionListener {
 
 		file = new JMenu("Plik");
 		menuBar.add(file);
-		
+
 		open = new JMenu("Otwórz...");
 		file.add(open);
-		
+
 		menuItemOpenBankFile = new JMenuItem("Wczytaj plik bankowy");
 		open.add(menuItemOpenBankFile);
 		menuItemOpenBankFile.addActionListener(this);
@@ -62,17 +71,49 @@ public class Gui extends JFrame implements ActionListener {
 		menuItemExit.addActionListener(this);
 		file.addSeparator();
 		file.add(menuItemExit);
-		
+
 		options = new JMenu("Opcje");
 		menuBar.add(options);
 
 		validations = new JMenu("Walidacje");
 		options.add(validations);
 		options.addSeparator();
-		
-		menuItemLayout = new JMenuItem("Wygl¹d");
-		options.add(menuItemLayout);
-		
+
+		menuLayout = new JMenu("Wygl¹d");
+		options.add(menuLayout);
+		menuItemRed = new JCheckBoxMenuItem("Czerwony", false);
+		menuItemRed.addActionListener(this);
+		menuLayout.add(menuItemRed);
+		menuItemGreen = new JCheckBoxMenuItem("Zielony", false);
+		menuItemGreen.addActionListener(this);
+		menuLayout.add(menuItemGreen);
+		menuItemBlue = new JCheckBoxMenuItem("Niebieski", false);
+		menuItemBlue.addActionListener(this);
+		menuLayout.add(menuItemBlue);
+		menuItemPink = new JCheckBoxMenuItem("Ró¿owy", false);
+		menuItemPink.addActionListener(this);
+		menuLayout.add(menuItemPink);
+		menuItemYellow = new JCheckBoxMenuItem("¯ó³ty", false);
+		menuItemYellow.addActionListener(this);
+		menuLayout.add(menuItemYellow);
+		menuItemYellow.addActionListener(this);
+		menuLayout.addSeparator();
+		menuItemCustom = new JCheckBoxMenuItem("W³asny kolor...", false);
+		menuItemCustom.addActionListener(this);
+		menuLayout.add(menuItemCustom);
+		menuLayout.addSeparator();
+		menuItemStandardColor = new JCheckBoxMenuItem("Kolor standardowy", true);
+		menuLayout.add(menuItemStandardColor);
+		menuItemStandardColor.addActionListener(this);
+		layoutGroup = new ButtonGroup();
+		layoutGroup.add(menuItemRed);
+		layoutGroup.add(menuItemGreen);
+		layoutGroup.add(menuItemBlue);
+		layoutGroup.add(menuItemPink);
+		layoutGroup.add(menuItemYellow);
+		layoutGroup.add(menuItemCustom);
+		layoutGroup.add(menuItemStandardColor);
+
 		alwaysOnTop = new JCheckBoxMenuItem("Zawsze na wierzchu");
 		alwaysOnTop.addActionListener(this);
 		options.add(alwaysOnTop);
@@ -171,16 +212,59 @@ public class Gui extends JFrame implements ActionListener {
 			}
 		} else if (eventSource == alwaysOnTop) {
 			if (alwaysOnTop.isSelected()) {
-			System.out.println("zawsze na wierzchu");
-			frame.setAlwaysOnTop(true);
+				System.out.println("zawsze na wierzchu");
+				frame.setAlwaysOnTop(true);
 			} else {
 				frame.setAlwaysOnTop(false);
 				System.out.println("NIE zawsze na wierzchu");
 			}
-		
+
 		} else if (eventSource == menuItemExit) {
-			System.out.println(e.getActionCommand());
-			dispose();
+			frame.dispose();
+		} else if (eventSource == menuItemRed) {
+			bankFilesPanel.setBackground(Color.RED);
+			dealerFilesPanel.setBackground(Color.RED);
+			centralAgencyPanel.setBackground(Color.RED);
+			otherGeneratorsPanel.setBackground(Color.RED);
+			logsPanel.setBackground(Color.RED);
+		} else if (eventSource == menuItemGreen) {
+			bankFilesPanel.setBackground(Color.GREEN);
+			dealerFilesPanel.setBackground(Color.GREEN);
+			centralAgencyPanel.setBackground(Color.GREEN);
+			otherGeneratorsPanel.setBackground(Color.GREEN);
+			logsPanel.setBackground(Color.GREEN);
+		} else if (eventSource == menuItemBlue) {
+			bankFilesPanel.setBackground(Color.BLUE);
+			dealerFilesPanel.setBackground(Color.BLUE);
+			centralAgencyPanel.setBackground(Color.BLUE);
+			otherGeneratorsPanel.setBackground(Color.BLUE);
+			logsPanel.setBackground(Color.BLUE);
+		} else if (eventSource == menuItemPink) {
+			bankFilesPanel.setBackground(Color.PINK);
+			dealerFilesPanel.setBackground(Color.PINK);
+			centralAgencyPanel.setBackground(Color.PINK);
+			otherGeneratorsPanel.setBackground(Color.PINK);
+			logsPanel.setBackground(Color.PINK);
+		} else if (eventSource == menuItemYellow) {
+			bankFilesPanel.setBackground(Color.YELLOW);
+			dealerFilesPanel.setBackground(Color.YELLOW);
+			centralAgencyPanel.setBackground(Color.YELLOW);
+			otherGeneratorsPanel.setBackground(Color.YELLOW);
+			logsPanel.setBackground(Color.YELLOW);
+		} else if (eventSource == menuItemStandardColor) {
+			bankFilesPanel.setBackground(null);
+			dealerFilesPanel.setBackground(null);
+			centralAgencyPanel.setBackground(null);
+			otherGeneratorsPanel.setBackground(null);
+			logsPanel.setBackground(null);
+		} else if(eventSource == menuItemCustom) {
+			colorChooser = new JColorChooser();
+			Color color = colorChooser.showDialog(null, "Wybierz w³asny kolor", Color.PINK);
+			bankFilesPanel.setBackground(color);
+			dealerFilesPanel.setBackground(color);
+			centralAgencyPanel.setBackground(color);
+			otherGeneratorsPanel.setBackground(color);
+			logsPanel.setBackground(color);
 		}
 	}
 }

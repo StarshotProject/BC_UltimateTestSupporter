@@ -19,11 +19,15 @@ import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 public class BankFilesPanel extends JPanel implements ActionListener {
+
+	
 
 	JTextField dateOfPayment, dateOfBankStatement, accountNumber, transferTittle, amount;
 	JButton generateFile;
@@ -34,13 +38,16 @@ public class BankFilesPanel extends JPanel implements ActionListener {
 	JRadioButton JRClient, JRAgent;
 	ButtonGroup AgentClient;
 	boolean clientTypeFile = true;
-
+	
 	static final int shortDigitAccountNumber = 10;
 	static final int longDigitAccountNumber = 26;
 
 	public BankFilesPanel() {
 
 		setLayout(null);
+		
+
+		
 		JLDateOfPayment = new JLabel("Data p³atnoœci:");
 		JLDateOfPayment.setBounds(5, 5, 75, 30);
 		add(JLDateOfPayment);
@@ -108,11 +115,14 @@ public class BankFilesPanel extends JPanel implements ActionListener {
 		troubleTicket.setBounds(20, 250, 430, 50);
 		troubleTicket.setFocusable(true);
 		add(troubleTicket);
+		
+		
 
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
 
 		Object eventSource = e.getSource();
 
@@ -123,7 +133,6 @@ public class BankFilesPanel extends JPanel implements ActionListener {
 		} else if (eventSource == generateFile) {
 			System.out.println("Otrzymano zdarzenie typu ActionEvent");
 			accountNumberReady = accountNumber.getText().replaceAll("\\W", "");
-
 			troubleTicket.setText("");
 			dateOfPayment.setBackground(Color.WHITE);
 			dateOfBankStatement.setBackground(Color.WHITE);

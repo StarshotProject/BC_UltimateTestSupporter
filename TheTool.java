@@ -19,6 +19,8 @@ public class TheTool {
 		}
 		SwingUtilities.invokeLater(new Runnable() {
 
+			
+			
 			@Override
 			public void run() {
 				System.out.println("Tworzê obiekt Gui z metody main");
