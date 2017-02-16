@@ -11,7 +11,6 @@ pola do uzupe³nienia:
 
 */
 
-
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,28 +19,42 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class DealerFilesPanel extends JPanel implements ActionListener{
-	
-	JLabel JLDocketNumber, JLDateOfDocket, JLPolicyBusinessNumber, JLEverestPolicyNumber, JLTotalCollection, JLContractCollection, JLFileName;
-	JTextFieldLimit JTextDocketNumber, JTextDateOfDocket, JTextPolicyBusinessNumber, JTextEverestPolicyNumber, JTextTotalCollection, JTextContractCollection, JTextFileName;	
-	
+public class DealerFilesPanel extends JPanel implements ActionListener {
+
+	JLabel JLDocketNumber, JLDateOfDocket, JLPolicyBusinessNumber, JLEverestPolicyNumber, JLTotalCollection,
+			JLContractCollection, JLFileName;
+	JTextField JTextDocketNumber, JTextDateOfDocket, JTextPolicyBusinessNumber, JTextEverestPolicyNumber,
+			JTextTotalCollection, JTextContractCollection, JTextFileName;
 
 	public DealerFilesPanel() {
-		
-			    setLayout(null);
 
-			  }
-			
-		
-		
-	
+		setLayout(null);
+		JLDocketNumber = new JLabel("Numer wykazu:");
+		JLDocketNumber.setBounds(5, 5, 80, 30);
+		add(JLDocketNumber);
+		JTextDocketNumber = new JTextField("XXXXXXXXX/YYYY/ZZ");
+		JTextDocketNumber.setBounds(80, 5, 120, 30);
+		add(JTextDocketNumber);
 
-
+		JLDateOfDocket = new JLabel("Data wp³yniêcia wykazu:");
+		JLDateOfDocket.setBounds(225, 5, 120, 30);
+		add(JLDateOfDocket);
+		JTextDateOfDocket = new JTextField("RRRRMMDD");
+		JTextDateOfDocket.setBounds(345, 5, 80, 30);
+		add(JTextDateOfDocket);
+		
+		JLPolicyBusinessNumber = new JLabel("Numer biznesowy polisy:");
+		JLPolicyBusinessNumber.setBounds(5, 40, 120, 30);
+		add(JLPolicyBusinessNumber);
+		JTextPolicyBusinessNumber = new JTextField("numer_biznesowy");
+		JTextPolicyBusinessNumber.setBounds(125, 40, 100, 30);
+		add(JTextPolicyBusinessNumber);
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
